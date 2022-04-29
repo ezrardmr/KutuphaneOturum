@@ -1,4 +1,5 @@
-﻿using KutuphaneOturum.Models;
+﻿using KutuphaneOturum.Classes;
+using KutuphaneOturum.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace KutuphaneOturum.Controllers
 {
+    [Audit]
     public class GirisController : Controller
     {
         // GET: Giris
@@ -49,17 +51,12 @@ namespace KutuphaneOturum.Controllers
 
             if (giris != null)
             {
-
-                {
-
-                }
                 
-                if (giris == null)
-                {
-                    Session["Uyari"] = "Kullanıcı bilgilerine erişilemedi. Lütfen tekrar deneyin. Sorun devam ederse yönetici ile iletişime geçin.";
+                    Session["UserName"] = giris.username;
+                    Session["Password"] = giris.pass;
 
-                    return RedirectToAction("Giris");
-                }  
+                    return RedirectToAction("AnaSayfa", "AnaSayfa");
+ 
             }
             else
             {

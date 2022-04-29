@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="KullaniciModel.kullanicilar" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="KullaniciModel.oturumSuresi" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="KullaniciModel.FK_oturumSuresi_kullanicilar" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KullaniciModel.masalar" Width="1.5" PointX="6.5" PointY="1.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

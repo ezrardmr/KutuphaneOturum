@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KullaniciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KullaniciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="kullanicilar">
           <Key>
             <PropertyRef Name="id" />
@@ -12,6 +12,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar(max)" Nullable="false" />
           <Property Name="pass" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Kullanici.dbo.masalar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="masalar">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="oturumSuresi">
           <Key>
@@ -35,13 +45,18 @@
         <EntityContainer Name="KullaniciModelStoreContainer">
           <EntitySet Name="kullanicilar" EntityType="Self.kullanicilar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="oturumSuresi" EntityType="Self.oturumSuresi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="masalar" EntityType="Self.masalar" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [masalar].[id] AS [id], 
+    [masalar].[username] AS [username]
+    FROM [dbo].[masalar] AS [masalar]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_oturumSuresi_kullanicilar" Association="Self.FK_oturumSuresi_kullanicilar">
             <End Role="kullanicilar" EntitySet="kullanicilar" />
             <End Role="oturumSuresi" EntitySet="oturumSuresi" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KullaniciModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -81,7 +96,16 @@
             <End Role="kullanicilar" EntitySet="kullanicilar" />
             <End Role="oturumSuresi" EntitySet="oturumSuresi" />
           </AssociationSet>
+          <EntitySet Name="masalar" EntityType="KullaniciModel.masalar" />
         </EntityContainer>
+        <EntityType Name="masalar">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -102,6 +126,14 @@
               <MappingFragment StoreEntitySet="oturumSuresi">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="oturum" ColumnName="oturum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="masalar">
+            <EntityTypeMapping TypeName="KullaniciModel.masalar">
+              <MappingFragment StoreEntitySet="masalar">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

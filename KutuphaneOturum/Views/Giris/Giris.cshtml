@@ -3,5 +3,127 @@
     ViewBag.Title = "Giris";
 }
 
-<h2>Giris</h2>
+<body>
+    <div>
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-xl-9">
+                    <div class="auth-full-bg pt-lg-5 p-4">
+                        <div class="w-100">
+                            <div class="bg-overlay" style=""></div>
+                            <div class="d-flex h-100 flex-column">
+                                <div class="p-4 mt-auto">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-7">
+                                            <div class="text-center">
+
+                                                <img src="~/Style/images/logo2.png" class="auth-logo-light">
+                                                <h4 class="mb-3" style="color:black;">Kütüphane Oturum Otomasyonu</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+
+                <div class="col-xl-3">
+                    <div class="auth-full-page-content p-md-5 p-4">
+                        <div class="w-100">
+
+                            <div class="d-flex flex-column h-100">
+
+                                <div class="my-auto" >
+
+                                    <div>
+                                        <h5 class="text-primary">Merhaba</h5>
+                                        <p class="text-muted">Kütüphane Oturum Sistemi İçin Giriş Yapabilirisiniz</p>
+
+                                        @if (Session["Uyari"] != null)
+                                        {
+                                            <p style="color:red">@Session["Uyari"]</p>
+                                        }
+                                    </div>
+
+                                    <div class="mt-4">
+                                        @using (Html.BeginForm("GirisAction", "Giris", FormMethod.Post, new { enctype = "multipart/form-data", @class = "", @id = "data" }))
+                                        {
+                                            <form>
+
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Kullanıcı Adı</label>
+                                                    @Html.TextBox("usernamea", null, new { @class = "form-control", placeholder = "Kullanıcı Adı", type = "UserName" })
+
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="float-end">
+
+                                                    </div>
+                                                    <label class="form-label">Şifre</label>
+                                                    <div class="input-group auth-pass-inputgroup">
+                                                        @Html.TextBox("Password", null, new { @class = "form-control", placeholder = "Şifre", type = "Password" })
+
+                                                        <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    @Html.CheckBox("remember-check", false, new { @class = "form-check-input" })
+
+                                                    <label class="form-check-label" for="remember-check">
+                                                        Beni Hatırla
+                                                    </label>
+                                                </div>
+
+                                                <div class="mt-3 d-grid">
+                                                    <button href="#" class="btn btn-primary waves-effect waves-light" type="submit" style="color:bisque;">Giriş Yap</button>
+                                                </div>
+
+                                            </form>
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 mt-md-5 text-center">
+                                    <p class="mb-0">
+                                        ©
+                                        <script>document.write(new Date().getFullYear())</script> Fırat Üniversitesi
+                                    </p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container-fluid -->
+    </div>
+    <!-- CSS -->
+   <link rel="stylesheet" href="~/Style/libs/css/main.css">
+    
+     <!-- JAVASCRIPT -->
+        <script src="~/Style/libs/jquery/jquery.min.js"></script>
+        <script src="~/Style/libs/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="~/Style/libs/metismenu/metisMenu.min.js"></script>
+        <script src="~/Style/libs/simplebar/simplebar.min.js"></script>
+        <script src="~/Style/libs/node-waves/waves.min.js"></script>
+
+        <!-- owl.carousel js -->
+        <script src="~/Style/libs/owl.carousel/owl.carousel.min.js"></script>
+
+        <!-- auth-2-carousel init -->
+        <script src="~/Style/js/pages/auth-2-carousel.init.js"></script>
+
+        <!-- App js -->
+        <script src="~/Style/js/app.js"></script>
+
+</body>
 
