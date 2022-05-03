@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Web.Mvc;
-
+/*
 namespace KutuphaneOturum.Classes
 {
     public class AuditAttribute : ActionFilterAttribute
@@ -44,4 +44,4 @@ namespace KutuphaneOturum.Classes
 
         }
     }
-}
+}*/

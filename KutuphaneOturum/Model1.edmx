@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KullaniciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AktifMi">
+          <Key>
+            <PropertyRef Name="statu_id" />
+            <PropertyRef Name="statu" />
+          </Key>
+          <Property Name="statu_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statu" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="kullanicilar">
           <Key>
             <PropertyRef Name="id" />
@@ -13,47 +23,93 @@
           <Property Name="username" Type="varchar(max)" Nullable="false" />
           <Property Name="pass" Type="varchar(max)" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Kullanici.dbo.masalar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="masalar">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="username" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="varchar(max)" Nullable="false" />
+          <Property Name="kat" Type="varchar(max)" Nullable="false" />
+          <Property Name="masa_sayisi" Type="varchar(max)" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="bitirme_tarihi" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="oturumSuresi">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="oturum" Type="bit" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="aktifMi" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="yardim">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="soru_icerik" Type="varchar(max)" Nullable="false" />
+          <Property Name="soru_turu" Type="varchar(max)" Nullable="false" />
+          <Property Name="soruBaslik" Type="varchar(max)" Nullable="false" />
+          <Property Name="tarih" Type="datetime" Nullable="false" />
+          <Property Name="soran_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_masalar_kullanicilar">
+          <End Role="kullanicilar" Type="Self.kullanicilar" Multiplicity="1" />
+          <End Role="masalar" Type="Self.masalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="masalar">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_oturumSuresi_kullanicilar">
           <End Role="kullanicilar" Type="Self.kullanicilar" Multiplicity="1" />
-          <End Role="oturumSuresi" Type="Self.oturumSuresi" Multiplicity="0..1" />
+          <End Role="oturumSuresi" Type="Self.oturumSuresi" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="kullanicilar">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="oturumSuresi">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yardim_kullanicilar">
+          <End Role="kullanicilar" Type="Self.kullanicilar" Multiplicity="1" />
+          <End Role="yardim" Type="Self.yardim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
               <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="yardim">
+              <PropertyRef Name="soran_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="KullaniciModelStoreContainer">
           <EntitySet Name="kullanicilar" EntityType="Self.kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="masalar" EntityType="Self.masalar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="oturumSuresi" EntityType="Self.oturumSuresi" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="masalar" EntityType="Self.masalar" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="yardim" EntityType="Self.yardim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AktifMi" EntityType="Self.AktifMi" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [masalar].[id] AS [id], 
-    [masalar].[username] AS [username]
-    FROM [dbo].[masalar] AS [masalar]</DefiningQuery>
+    [AktifMi].[statu_id] AS [statu_id], 
+    [AktifMi].[statu] AS [statu]
+    FROM [dbo].[AktifMi] AS [AktifMi]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_masalar_kullanicilar" Association="Self.FK_masalar_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="masalar" EntitySet="masalar" />
+          </AssociationSet>
           <AssociationSet Name="FK_oturumSuresi_kullanicilar" Association="Self.FK_oturumSuresi_kullanicilar">
             <End Role="kullanicilar" EntitySet="kullanicilar" />
             <End Role="oturumSuresi" EntitySet="oturumSuresi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yardim_kullanicilar" Association="Self.FK_yardim_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="yardim" EntitySet="yardim" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -67,45 +123,105 @@ warning 6002: The table/view 'Kullanici.dbo.masalar' does not have a primary key
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="oturumSuresi" Relationship="Self.FK_oturumSuresi_kullanicilar" FromRole="kullanicilar" ToRole="oturumSuresi" />
+          <NavigationProperty Name="masalar" Relationship="KullaniciModel.FK_masalar_kullanicilar" FromRole="kullanicilar" ToRole="masalar" />
+          <NavigationProperty Name="oturumSuresi" Relationship="KullaniciModel.FK_oturumSuresi_kullanicilar" FromRole="kullanicilar" ToRole="oturumSuresi" />
+          <NavigationProperty Name="yardim" Relationship="KullaniciModel.FK_yardim_kullanicilar" FromRole="kullanicilar" ToRole="yardim" />
+        </EntityType>
+        <EntityType Name="masalar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bitirme_tarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="kat" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="masa_sayisi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kullanicilar" Relationship="KullaniciModel.FK_masalar_kullanicilar" FromRole="masalar" ToRole="kullanicilar" />
         </EntityType>
         <EntityType Name="oturumSuresi">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="oturum" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="kullanicilar" Relationship="Self.FK_oturumSuresi_kullanicilar" FromRole="oturumSuresi" ToRole="kullanicilar" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="aktifMi" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kullanicilar" Relationship="KullaniciModel.FK_oturumSuresi_kullanicilar" FromRole="oturumSuresi" ToRole="kullanicilar" />
+        </EntityType>
+        <EntityType Name="AktifMi">
+          <Key>
+            <PropertyRef Name="statu_id" />
+            <PropertyRef Name="statu" />
+          </Key>
+          <Property Name="statu_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="KullaniciEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="kullanicilar" EntityType="Self.kullanicilar" />
+          <EntitySet Name="masalar" EntityType="Self.masalar" />
+          <EntitySet Name="oturumSuresi" EntityType="Self.oturumSuresi" />
+          <EntitySet Name="AktifMi" EntityType="Self.AktifMi" />
+          <AssociationSet Name="FK_masalar_kullanicilar" Association="KullaniciModel.FK_masalar_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="masalar" EntitySet="masalar" />
+          </AssociationSet>
+          <EntitySet Name="yardim" EntityType="KullaniciModel.yardim" />
+          <AssociationSet Name="FK_oturumSuresi_kullanicilar" Association="KullaniciModel.FK_oturumSuresi_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="oturumSuresi" EntitySet="oturumSuresi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yardim_kullanicilar" Association="KullaniciModel.FK_yardim_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="yardim" EntitySet="yardim" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_masalar_kullanicilar">
+          <End Type="KullaniciModel.kullanicilar" Role="kullanicilar" Multiplicity="1" />
+          <End Type="KullaniciModel.masalar" Role="masalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="masalar">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="yardim">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="soru_icerik" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="soru_turu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="soruBaslik" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="tarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="soran_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kullanicilar" Relationship="KullaniciModel.FK_yardim_kullanicilar" FromRole="yardim" ToRole="kullanicilar" />
         </EntityType>
         <Association Name="FK_oturumSuresi_kullanicilar">
-          <End Role="kullanicilar" Type="Self.kullanicilar" Multiplicity="1" />
-          <End Role="oturumSuresi" Type="Self.oturumSuresi" Multiplicity="0..1" />
+          <End Type="KullaniciModel.kullanicilar" Role="kullanicilar" Multiplicity="1" />
+          <End Type="KullaniciModel.oturumSuresi" Role="oturumSuresi" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="kullanicilar">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="oturumSuresi">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="KullaniciEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="kullanicilar" EntityType="Self.kullanicilar" />
-          <EntitySet Name="oturumSuresi" EntityType="Self.oturumSuresi" />
-          <AssociationSet Name="FK_oturumSuresi_kullanicilar" Association="Self.FK_oturumSuresi_kullanicilar">
-            <End Role="kullanicilar" EntitySet="kullanicilar" />
-            <End Role="oturumSuresi" EntitySet="oturumSuresi" />
-          </AssociationSet>
-          <EntitySet Name="masalar" EntityType="KullaniciModel.masalar" />
-        </EntityContainer>
-        <EntityType Name="masalar">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="username" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
+        <Association Name="FK_yardim_kullanicilar">
+          <End Type="KullaniciModel.kullanicilar" Role="kullanicilar" Multiplicity="1" />
+          <End Type="KullaniciModel.yardim" Role="yardim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="yardim">
+              <PropertyRef Name="soran_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -121,18 +237,42 @@ warning 6002: The table/view 'Kullanici.dbo.masalar' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="masalar">
+            <EntityTypeMapping TypeName="KullaniciModel.masalar">
+              <MappingFragment StoreEntitySet="masalar">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bitirme_tarihi" ColumnName="bitirme_tarihi" />
+                <ScalarProperty Name="kat" ColumnName="kat" />
+                <ScalarProperty Name="masa_sayisi" ColumnName="masa_sayisi" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="oturumSuresi">
             <EntityTypeMapping TypeName="KullaniciModel.oturumSuresi">
               <MappingFragment StoreEntitySet="oturumSuresi">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="oturum" ColumnName="oturum" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="aktifMi" ColumnName="aktifMi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="masalar">
-            <EntityTypeMapping TypeName="KullaniciModel.masalar">
-              <MappingFragment StoreEntitySet="masalar">
-                <ScalarProperty Name="username" ColumnName="username" />
+          <EntitySetMapping Name="AktifMi">
+            <EntityTypeMapping TypeName="KullaniciModel.AktifMi">
+              <MappingFragment StoreEntitySet="AktifMi">
+                <ScalarProperty Name="statu_id" ColumnName="statu_id" />
+                <ScalarProperty Name="statu" ColumnName="statu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="yardim">
+            <EntityTypeMapping TypeName="KullaniciModel.yardim">
+              <MappingFragment StoreEntitySet="yardim">
+                <ScalarProperty Name="soran_id" ColumnName="soran_id" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="soruBaslik" ColumnName="soruBaslik" />
+                <ScalarProperty Name="soru_turu" ColumnName="soru_turu" />
+                <ScalarProperty Name="soru_icerik" ColumnName="soru_icerik" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

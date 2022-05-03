@@ -15,6 +15,11 @@ namespace KutuphaneOturum
     public partial class masalar
     {
         public int id { get; set; }
-        public string username { get; set; }
+        public System.DateTime bitirme_tarihi { get; set; }
+        public string kat { get; set; }
+        public string masa_sayisi { get; set; }
+        public int user_id { get; set; }
+    
+        public virtual kullanicilar kullanicilar { get; set; }
     }
 }

@@ -12,12 +12,9 @@ namespace KutuphaneOturum
     using System;
     using System.Collections.Generic;
     
-    public partial class oturumSuresi
+    public partial class AktifMi
     {
-        public int id { get; set; }
-        public int userid { get; set; }
-        public int aktifMi { get; set; }
-    
-        public virtual kullanicilar kullanicilar { get; set; }
+        public int statu_id { get; set; }
+        public string statu { get; set; }
     }
 }

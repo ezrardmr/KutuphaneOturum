@@ -26,7 +26,9 @@ namespace KutuphaneOturum
         }
     
         public virtual DbSet<kullanicilar> kullanicilar { get; set; }
-        public virtual DbSet<oturumSuresi> oturumSuresi { get; set; }
         public virtual DbSet<masalar> masalar { get; set; }
+        public virtual DbSet<oturumSuresi> oturumSuresi { get; set; }
+        public virtual DbSet<AktifMi> AktifMi { get; set; }
+        public virtual DbSet<yardim> yardim { get; set; }
     }
 }

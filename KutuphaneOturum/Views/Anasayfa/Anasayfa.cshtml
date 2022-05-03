@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "AnaSayfa";
-    Layout = "~/Views/Shared/Giris.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
@@ -75,9 +75,10 @@
                                                 <div class="media-body">
                                                     <h6 class="mt-0 mb-1" key="t-your-order">@item.id</h6>
                                                     <div class="font-size-12 text-muted">
-                                                        <p class="mb-1" key="t-grammer">@item.username</p>
+                                                        <p class="mb-1" key="t-grammer">@item.kat</p>
+                                                        <p class="mb-1" key="t-grammer">@item.user_id</p>
                                                         <p class="mb-1" key="t-grammer">@item.masa_sayisi</p>
-                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">@item.bitis_tarihi.ToString("dd MMMM HH:mm")</span></p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">@item.bitirme_tarihi.ToString("dd MMMM HH:mm")</span></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,15 +98,10 @@
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
 
-
-
-
-
-
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item text-danger" href="@Url.Action("Duzenleme", "Duzenleme")"> <span key="">Bilgileri Düzenle</span></a>
-                                <a class="dropdown-item text-danger" href="@Url.Action("LogOut", "Giris")"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Çıkış Yap</span></a>
+                                <a class="dropdown-item text-danger" href="@Url.Action("Profilim", "Profilim")"> <span key="">Bilgileri Düzenle</span></a>
+                                <a class="dropdown-item text-danger" href="@Url.Action("Cikis", "Giris")"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Çıkış Yap</span></a>
                             </div>
 
                         </div>
@@ -127,11 +123,11 @@
                                 <div class="card-body">
                                     <div class="navbar-header" style="max-width: 100% !important;">
                                         <div class="d-flex">
-                                            <h4> Maillerim </h4>
+                                            <h4> Aktif Oturumlar </h4>
                                         </div>
 
                                         <div class="d-flex">
-                                            <button onclick="location.href='@Url.Action("GonderimEkle", "GonderimEkle")'" type="button" class="btn btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Yeni Gönderim Ekle</button>
+                                            <button onclick="location.href='@Url.Action("Yardimlasma", "Yardimlasma")'" type="button" class="btn btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Yardımlaşma</button>
                                         </div>
                                     </div>
 
@@ -139,60 +135,51 @@
                                         <table class="table align-middle table-nowrap mb-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th class="align-middle">Gönderen</th>
-                                                    <th class="align-middle">Alıcı</th>
-                                                    <th class="align-middle">Gönderildiği Tarih</th>
-                                                    <th class="align-middle">Konu</th>
-                                                    <th class="align-middle">Genel Durum</th>
-                                                    <th class="align-middle">İçerik</th>
+                                                    <th class="align-middle">Kullanıcı</th>
+                                                    <th class="align-middle">Aktiflik Süresi</th>
+                                                    <th class="align-middle">Kat Sayısı</th>
+                                                    <th class="align-middle">Masa Sayısı</th>
+                                                    <th class="align-middle">Durum</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if (Model.mailler.Count < 1)
+                                                @if (Model.msl.Count < 1)
                                                 {
                                                     <tr>
-                                                        Önceden yapılmış bir gönderim bulunmamaktadır.
+                                                        Aktif oturum bulunmamaktadır
                                                     </tr>
                                                 }
 
-                                                @foreach (var item in Model.mailler)
+                                                @foreach (var item in Model.usermasalari)
                                                 {
-                                                    <tr>
+                                            <tr>
 
-                                                        <td><a href="javascript: void(0);" class="text-body fw-bold">@item.mb.m_adres.ToString()</a> </td>
-                                                        <td>@item.mail.alıcı_mail</td>
-                                                        <td>
-                                                            @item.mail.tarih.ToString("dd MMMM, yyyy")
-                                                        </td>
-                                                        <td>
-                                                            @item.mail.mailBaslik.ToString()
-                                                        </td>
-                                                        <td>
-                                                            @if (@item.mail.statu == 1)
-                                                            {
-                                                                <span class="badge badge-pill badge-soft-dark font-size-12">Gönderildi</span>
-                                                            }
-                                                            else if (@item.mail.statu == 2)
-                                                            {
-                                                                <span class="badge badge-pill badge-soft-success font-size-12">Gönderilmedi</span>
-                                                            }
-                                                            else if (@item.mail.statu == 3)
-                                                            {
-                                                                <span class="badge badge-pill bg-info font-size-12">İptal Edildi</span>
-                                                            }
+                                                <td><a href="javascript: void(0);" class="text-body fw-bold">@item.klc.username.ToString()</a> </td>
 
-                                                        </td>
-                                                        <td>
-                                                            @item.mail.mail_icerik.ToString()
-                                                        </td>
+                                                <td>
+                                                    @item.masa.bitirme_tarihi.ToString("dd MMMM, yyyy")
+                                                </td>
+                                                <td>
+                                                    @item.masa.kat.ToString()
+                                                </td>
+                                                <td>
+                                                    @item.masa.masa_sayisi.ToString()
+                                                </td>
+                                                <td>
+                                                   @* @if (@item.ots.aktifMi == 1)
+                                                    {
+                                                        <span class="badge badge-pill badge-soft-dark font-size-12">AKTİF</span>
+                                                    }
+                                                    else if (@item.ots.aktifMi == 2)
+                                                    {
+                                                        <span class="badge badge-pill badge-soft-success font-size-12">AKTİF DEĞİL</span>
+                                                    }
 
-                                                        @* <td>
-                                                            < !-- Button trigger modal -->
-                                                            <button onclick="location.href='@Url.Action("Detay", "Detay", new { projeid = item.mail.gonderen_id })'" type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-                                                                İncele
-                                                            </button>
-                                                               </td>*@
-                                                    </tr>
+                                                    *@
+                                                </td>
+
+
+                                            </tr>
                                                 }
 
                                             </tbody>
@@ -213,7 +200,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> © YTÜ Bilgi İşlem Daire Başkanlığı.
+                            <script>document.write(new Date().getFullYear())</script> © Fırat Üniversitesi
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">

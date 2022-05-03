@@ -1,4 +1,4 @@
-﻿using KutuphaneOturum.Classes;
+﻿//using KutuphaneOturum.Classes;
 using KutuphaneOturum.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace KutuphaneOturum.Controllers
 {
-    [Audit]
+   // [Audit]
     public class GirisController : Controller
     {
         // GET: Giris
@@ -19,7 +19,7 @@ namespace KutuphaneOturum.Controllers
             return View();
         }
 
-        public ActionResult Cıkıs()
+        public ActionResult Cikis()
         {
             Session.RemoveAll();
             return RedirectToAction("Giris");

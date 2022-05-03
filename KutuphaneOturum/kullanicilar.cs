@@ -14,10 +14,23 @@ namespace KutuphaneOturum
     
     public partial class kullanicilar
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public kullanicilar()
+        {
+            this.masalar = new HashSet<masalar>();
+            this.oturumSuresi = new HashSet<oturumSuresi>();
+            this.yardim = new HashSet<yardim>();
+        }
+    
         public int id { get; set; }
         public string username { get; set; }
         public string pass { get; set; }
     
-        public virtual oturumSuresi oturumSuresi { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<masalar> masalar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<oturumSuresi> oturumSuresi { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<yardim> yardim { get; set; }
     }
 }
