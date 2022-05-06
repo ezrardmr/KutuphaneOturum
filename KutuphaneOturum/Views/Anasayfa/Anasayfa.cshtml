@@ -100,7 +100,7 @@
 
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item text-danger" href="@Url.Action("Profilim", "Profilim")"> <span key="">Bilgileri Düzenle</span></a>
+                                <a class="dropdown-item text-danger" href="@Url.Action("Profilim", "Profilim")"> <span key="">Profilim</span></a>
                                 <a class="dropdown-item text-danger" href="@Url.Action("Cikis", "Giris")"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Çıkış Yap</span></a>
                             </div>
 
@@ -152,34 +152,34 @@
 
                                                 @foreach (var item in Model.usermasalari)
                                                 {
-                                            <tr>
+                                                    <tr>
 
-                                                <td><a href="javascript: void(0);" class="text-body fw-bold">@item.klc.username.ToString()</a> </td>
+                                                        <td><a href="javascript: void(0);" class="text-body fw-bold">@item.klc.username.ToString()</a> </td>
 
-                                                <td>
-                                                    @item.masa.bitirme_tarihi.ToString("dd MMMM, yyyy")
-                                                </td>
-                                                <td>
-                                                    @item.masa.kat.ToString()
-                                                </td>
-                                                <td>
-                                                    @item.masa.masa_sayisi.ToString()
-                                                </td>
-                                                <td>
-                                                   @* @if (@item.ots.aktifMi == 1)
-                                                    {
-                                                        <span class="badge badge-pill badge-soft-dark font-size-12">AKTİF</span>
-                                                    }
-                                                    else if (@item.ots.aktifMi == 2)
-                                                    {
-                                                        <span class="badge badge-pill badge-soft-success font-size-12">AKTİF DEĞİL</span>
-                                                    }
+                                                        <td>
+                                                            @item.masa.bitirme_tarihi.ToString("dd MMMM, yyyy")
+                                                        </td>
+                                                        <td>
+                                                            @item.masa.kat.ToString()
+                                                        </td>
+                                                        <td>
+                                                            @item.masa.masa_sayisi.ToString()
+                                                        </td>
+                                                        <td>
+                                                            @* @if (@item.ots.aktifMi == 1)
+                                                                {
+                                                                    <span class="badge badge-pill badge-soft-dark font-size-12">AKTİF</span>
+                                                                }
+                                                                else if (@item.ots.aktifMi == 2)
+                                                                {
+                                                                    <span class="badge badge-pill badge-soft-success font-size-12">AKTİF DEĞİL</span>
+                                                                }
 
-                                                    *@
-                                                </td>
+                                                            *@
+                                                        </td>
 
 
-                                            </tr>
+                                                    </tr>
                                                 }
 
                                             </tbody>
@@ -218,16 +218,16 @@
     <div class="rightbar-overlay"></div>
 
     <!-- JAVASCRIPT -->
-    <script src="~/Style/libs/jquery/jquery.min.js"></script>
-    <script src="~/Style/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Style/libs/metismenu/metisMenu.min.js"></script>
-    <script src="~/Style/libs/simplebar/simplebar.min.js"></script>
-    <script src="~/Style/libs/node-waves/waves.min.js"></script>
+    <script src="~/Style/lib/jquery/jquery.min.js"></script>
+    <script src="~/Style/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Style/lib/metismenu/metisMenu.min.js"></script>
+    <script src="~/Style/lib/simplebar/simplebar.min.js"></script>
+    <script src="~/Style/lib/node-waves/waves.min.js"></script>
 
     <!-- apexcharts -->
-    <script src="~/Style/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="~/Style/apexcharts/apexcharts.min.js"></script>
 
-    <script src="~/Style/js/pages/dashboard.init.js"></script>
+    <script src="~/Style/js/dashboard.init.js"></script>
 
     <script src="~/Style/js/app.js"></script>
 </body>

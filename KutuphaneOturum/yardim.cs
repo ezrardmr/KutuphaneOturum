@@ -14,13 +14,18 @@ namespace KutuphaneOturum
     
     public partial class yardim
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public yardim()
+        {
+            this.gonderim = new HashSet<gonderim>();
+        }
+    
         public int id { get; set; }
-        public string soru_icerik { get; set; }
-        public string soru_turu { get; set; }
-        public string soruBaslik { get; set; }
-        public System.DateTime tarih { get; set; }
         public int soran_id { get; set; }
+        public string ders_turu { get; set; }
     
         public virtual kullanicilar kullanicilar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<gonderim> gonderim { get; set; }
     }
 }

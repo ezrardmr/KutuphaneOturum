@@ -30,5 +30,6 @@ namespace KutuphaneOturum
         public virtual DbSet<oturumSuresi> oturumSuresi { get; set; }
         public virtual DbSet<AktifMi> AktifMi { get; set; }
         public virtual DbSet<yardim> yardim { get; set; }
+        public virtual DbSet<gonderim> gonderim { get; set; }
     }
 }

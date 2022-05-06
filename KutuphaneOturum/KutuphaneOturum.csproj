@@ -143,6 +143,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="gonderim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="kullanicilar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -209,14 +212,24 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\modernizr.min.js" />
+    <Content Include="Style\apexcharts\apexcharts.min.js" />
     <Content Include="Style\css\app.min.css" />
     <Content Include="Style\css\bootstrap.min.css" />
     <Content Include="Style\css\icons.min.css" />
     <Content Include="Style\images\logo2.png" />
+    <Content Include="Style\js\auth-2-carousel.init.js" />
+    <Content Include="Style\js\dashboard.init.js" />
+    <Content Include="Style\js\limonte-sweetalert2\sweetalert2.min.js" />
     <Content Include="Style\libs\owl.carousel.min.css" />
     <Content Include="Style\libs\owl.theme.default.min.css" />
     <Content Include="Style\libs\select2.min.css" />
     <Content Include="Style\libs\sweetalert2.min.css" />
+    <Content Include="Style\lib\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Style\lib\jquery\jquery.min.js" />
+    <Content Include="Style\lib\metisMenu\metisMenu.min.js" />
+    <Content Include="Style\lib\node-waves\waves.min.js" />
+    <Content Include="Style\lib\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Style\lib\simplebar\simplebar.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -242,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +272,7 @@
     <Content Include="Scripts\jquery.min.map" />
     <Content Include="Scripts\jquery.slim.min.map" />
     <Content Include="Scripts\jquery-validation-sri.json" />
+    <Content Include="Style\lib\bootstrap\js\bootstrap.bundle.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
