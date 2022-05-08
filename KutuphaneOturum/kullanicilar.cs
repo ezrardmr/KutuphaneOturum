@@ -20,6 +20,7 @@ namespace KutuphaneOturum
             this.masalar = new HashSet<masalar>();
             this.oturumSuresi = new HashSet<oturumSuresi>();
             this.yardim = new HashSet<yardim>();
+            this.profil = new HashSet<profil>();
         }
     
         public int id { get; set; }
@@ -32,5 +33,7 @@ namespace KutuphaneOturum
         public virtual ICollection<oturumSuresi> oturumSuresi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<yardim> yardim { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<profil> profil { get; set; }
     }
 }

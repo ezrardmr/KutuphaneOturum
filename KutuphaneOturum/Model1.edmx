@@ -49,6 +49,15 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <Property Name="userid" Type="int" Nullable="false" />
           <Property Name="aktifMi" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="profil">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usrid" Type="int" Nullable="false" />
+          <Property Name="bolum" Type="varchar(max)" Nullable="false" />
+          <Property Name="fakulte" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="yardim">
           <Key>
             <PropertyRef Name="id" />
@@ -93,6 +102,18 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_profil_kullanicilar">
+          <End Role="kullanicilar" Type="Self.kullanicilar" Multiplicity="1" />
+          <End Role="profil" Type="Self.profil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="profil">
+              <PropertyRef Name="usrid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_yardim_kullanicilar">
           <End Role="kullanicilar" Type="Self.kullanicilar" Multiplicity="1" />
           <End Role="yardim" Type="Self.yardim" Multiplicity="*" />
@@ -110,6 +131,7 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <EntitySet Name="kullanicilar" EntityType="Self.kullanicilar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="masalar" EntityType="Self.masalar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="oturumSuresi" EntityType="Self.oturumSuresi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profil" EntityType="Self.profil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="yardim" EntityType="Self.yardim" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AktifMi" EntityType="Self.AktifMi" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -128,6 +150,10 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <AssociationSet Name="FK_oturumSuresi_kullanicilar" Association="Self.FK_oturumSuresi_kullanicilar">
             <End Role="kullanicilar" EntitySet="kullanicilar" />
             <End Role="oturumSuresi" EntitySet="oturumSuresi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_profil_kullanicilar" Association="Self.FK_profil_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="profil" EntitySet="profil" />
           </AssociationSet>
           <AssociationSet Name="FK_yardim_kullanicilar" Association="Self.FK_yardim_kullanicilar">
             <End Role="kullanicilar" EntitySet="kullanicilar" />
@@ -148,6 +174,7 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <NavigationProperty Name="masalar" Relationship="KullaniciModel.FK_masalar_kullanicilar" FromRole="kullanicilar" ToRole="masalar" />
           <NavigationProperty Name="oturumSuresi" Relationship="KullaniciModel.FK_oturumSuresi_kullanicilar" FromRole="kullanicilar" ToRole="oturumSuresi" />
           <NavigationProperty Name="yardim" Relationship="KullaniciModel.FK_yardim_kullanicilar" FromRole="kullanicilar" ToRole="yardim" />
+          <NavigationProperty Name="profil" Relationship="KullaniciModel.FK_profil_kullanicilar" FromRole="kullanicilar" ToRole="profil" />
         </EntityType>
         <EntityType Name="masalar">
           <Key>
@@ -199,6 +226,11 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <AssociationSet Name="FK_gonderim_kullanicilar1" Association="KullaniciModel.FK_gonderim_kullanicilar1">
             <End Role="yardim" EntitySet="yardim" />
             <End Role="gonderim" EntitySet="gonderim" />
+          </AssociationSet>
+          <EntitySet Name="profil" EntityType="KullaniciModel.profil" />
+          <AssociationSet Name="FK_profil_kullanicilar" Association="KullaniciModel.FK_profil_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="profil" EntitySet="profil" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="FK_masalar_kullanicilar">
@@ -268,6 +300,28 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="profil">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bolum" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fakulte" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="usrid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kullanicilar" Relationship="KullaniciModel.FK_profil_kullanicilar" FromRole="profil" ToRole="kullanicilar" />
+        </EntityType>
+        <Association Name="FK_profil_kullanicilar">
+          <End Type="KullaniciModel.kullanicilar" Role="kullanicilar" Multiplicity="1" />
+          <End Type="KullaniciModel.profil" Role="profil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="profil">
+              <PropertyRef Name="usrid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -325,6 +379,16 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
               <MappingFragment StoreEntitySet="gonderim">
                 <ScalarProperty Name="csv_yolu" ColumnName="csv_yolu" />
                 <ScalarProperty Name="gon_id" ColumnName="gon_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profil">
+            <EntityTypeMapping TypeName="KullaniciModel.profil">
+              <MappingFragment StoreEntitySet="profil">
+                <ScalarProperty Name="usrid" ColumnName="usrid" />
+                <ScalarProperty Name="fakulte" ColumnName="fakulte" />
+                <ScalarProperty Name="bolum" ColumnName="bolum" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
