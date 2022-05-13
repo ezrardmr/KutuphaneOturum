@@ -1,7 +1,237 @@
 ﻿
 @{
     ViewBag.Title = "IstekSikayet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>IstekSikayet</h2>
+@model KutuphaneOturum.Controllers.IstekSikayetModel
+
+<body data-topbar="colored" data-layout="horizontal">
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <header id="page-topbar" style="background: #9b1e48; height: 80px;">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a href="@Url.Action("Anasayfa", "Anasayfa")" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="~/Style/images/logo2.png" alt="" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="~/Style/images/logo2.png" alt="" height="17">
+                            </span>
+                        </a>
+
+                        <a href="@Url.Action("Anasayfa", "Anasayfa")" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="~/Style/images/logo2.png" alt="" height="60">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="~/Style/images/logo2.png" alt="" height="60">
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- App Search-->
+
+                </div>
+                <div class="d-flex">
+
+                    <div class="dropdown d-none d-lg-inline-block ml-1">
+
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bx bx-bell bx-tada"></i>
+                                @if (Model.msl.Count > 0)
+                                {
+                                    <span class="badge bg-danger rounded-pill">@Model.msl.Count</span>
+                                }
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                                 aria-labelledby="page-header-notifications-dropdown">
+                                <div class="p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <h6 class="m-0" key="t-notifications"> Bildirimler </h6>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div data-simplebar style="max-height: 230px;">
+
+                                    @foreach (var item in Model.msl)
+                                    {
+                                        <a href="" class="text-reset  gonderim-item">
+                                            <div class="media">
+                                                <div class="avatar-xs me-3">
+                                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                                        <i class="bx bx-cart"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mt-0 mb-1" key="t-your-order">@item.id</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-1" key="t-grammer">@item.kat</p>
+                                                        <p class="mb-1" key="t-grammer">@item.user_id</p>
+                                                        <p class="mb-1" key="t-grammer">@item.masa_sayisi</p>
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">@item.bitirme_tarihi.ToString("dd MMMM HH:mm")</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">Merhaba @Session["USERNAME"] </span>
+                                <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <a class="dropdown-item text-danger" href="@Url.Action("Profilim", "Profilim")"> <span key="">Profilim</span></a>
+                                <a class="dropdown-item text-danger" href="@Url.Action("Cikis", "Giris")"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Çıkış Yap</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="navbar-header" style="max-width: 100% !important;">
+                                        <div class="d-flex">
+                                            <h4> İstek&Şikayet </h4>
+                                        </div>
+                                        <div class="d-flex">
+                                            <button onclick="location.href='@Url.Action("Anasayfa", "Anasayfa")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;">Aktif Oturumlar</button>
+                                        </div>
+                                    </div>
+
+                                    @using (Html.BeginForm("IstekSikayetAction", "IstekSikayet", FormMethod.Post, new { enctype = "multipart/form-data", @class = "", @id = "data" }))
+                                    {
+                                       
+                                        <form>
+                                            <div class="row mb-4">
+                                                <label for="userN" class="col-form-label col-lg-2">Kullanıcı Adı</label>
+                                                <div class="col-lg-6">
+
+                                                    <input id="userN" name="userN" type="text" class="form-control" value="@ViewBag.un" />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row mb-4">
+                                                <label for="yorum" class="col-form-label col-lg-2">Yorum</label>
+                                                <div class="col-lg-6">
+
+                                                    <input id="yorum" name="yorum" type="text" class="form-control" placeholder="İstek ve şikayetlerinizi bize buradan ulaştırabilirsiniz">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <label class="col-form-label col-lg-2"></label>
+                                                <div class="col-lg-6">
+                                                    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                        Gönder
+                                                    </button>
+                                                    <!-- Static Backdrop Modal -->
+                                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="staticBackdropLabel">Gönderim Onayı</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>@DateTime.Now.ToString("dd-MM-yyyy") Tarihinde göndermeyi onaylıyor musunuz?</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">İptal</button>
+                                                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="sa-success">Gönder</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+
+                                    <!-- end table-responsive -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © Fırat Üniversitesi
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+    <!-- Right Sidebar -->
+    <!-- /Right-bar -->
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="~/Style/lib/jquery/jquery.min.js"></script>
+    <script src="~/Style/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Style/lib/metismenu/metisMenu.min.js"></script>
+    <script src="~/Style/lib/simplebar/simplebar.min.js"></script>
+    <script src="~/Style/lib/node-waves/waves.min.js"></script>
+
+    <!-- apexcharts -->
+    <script src="~/Style/apexcharts/apexcharts.min.js"></script>
+
+    <script src="~/Style/js/dashboard.init.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="~/Style/js/limonte-sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="~/Style/js/pages/sweet-alerts.init.js"></script>
+
+    <script src="~/Style/js/app.js"></script>
+</body>
 

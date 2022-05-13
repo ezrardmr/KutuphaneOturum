@@ -32,5 +32,6 @@ namespace KutuphaneOturum
         public virtual DbSet<yardim> yardim { get; set; }
         public virtual DbSet<gonderim> gonderim { get; set; }
         public virtual DbSet<profil> profil { get; set; }
+        public virtual DbSet<yorumlar> yorumlar { get; set; }
     }
 }

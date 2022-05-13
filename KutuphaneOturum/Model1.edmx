@@ -66,6 +66,15 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <Property Name="soran_id" Type="int" Nullable="false" />
           <Property Name="ders_turu" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="yorumlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="yorum_id" Type="int" Nullable="false" />
+          <Property Name="userN" Type="varchar(max)" Nullable="false" />
+          <Property Name="yorum" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <Association Name="FK_gonderim_yardim">
           <End Role="yardim" Type="Self.yardim" Multiplicity="1" />
           <End Role="gonderim" Type="Self.gonderim" Multiplicity="*" />
@@ -126,6 +135,18 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_yorumlar_kullanicilar">
+          <End Role="kullanicilar" Type="Self.kullanicilar" Multiplicity="1" />
+          <End Role="yorumlar" Type="Self.yorumlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="yorumlar">
+              <PropertyRef Name="yorum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="KullaniciModelStoreContainer">
           <EntitySet Name="gonderim" EntityType="Self.gonderim" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="kullanicilar" EntityType="Self.kullanicilar" Schema="dbo" store:Type="Tables" />
@@ -133,6 +154,7 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <EntitySet Name="oturumSuresi" EntityType="Self.oturumSuresi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profil" EntityType="Self.profil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="yardim" EntityType="Self.yardim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="yorumlar" EntityType="Self.yorumlar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AktifMi" EntityType="Self.AktifMi" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [AktifMi].[statu_id] AS [statu_id], 
@@ -159,6 +181,10 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
             <End Role="kullanicilar" EntitySet="kullanicilar" />
             <End Role="yardim" EntitySet="yardim" />
           </AssociationSet>
+          <AssociationSet Name="FK_yorumlar_kullanicilar" Association="Self.FK_yorumlar_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="yorumlar" EntitySet="yorumlar" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -175,6 +201,7 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <NavigationProperty Name="oturumSuresi" Relationship="KullaniciModel.FK_oturumSuresi_kullanicilar" FromRole="kullanicilar" ToRole="oturumSuresi" />
           <NavigationProperty Name="yardim" Relationship="KullaniciModel.FK_yardim_kullanicilar" FromRole="kullanicilar" ToRole="yardim" />
           <NavigationProperty Name="profil" Relationship="KullaniciModel.FK_profil_kullanicilar" FromRole="kullanicilar" ToRole="profil" />
+          <NavigationProperty Name="yorumlar" Relationship="KullaniciModel.FK_yorumlar_kullanicilar" FromRole="kullanicilar" ToRole="yorumlar" />
         </EntityType>
         <EntityType Name="masalar">
           <Key>
@@ -231,6 +258,11 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
           <AssociationSet Name="FK_profil_kullanicilar" Association="KullaniciModel.FK_profil_kullanicilar">
             <End Role="kullanicilar" EntitySet="kullanicilar" />
             <End Role="profil" EntitySet="profil" />
+          </AssociationSet>
+          <EntitySet Name="yorumlar" EntityType="KullaniciModel.yorumlar" />
+          <AssociationSet Name="FK_yorumlar_kullanicilar" Association="KullaniciModel.FK_yorumlar_kullanicilar">
+            <End Role="kullanicilar" EntitySet="kullanicilar" />
+            <End Role="yorumlar" EntitySet="yorumlar" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="FK_masalar_kullanicilar">
@@ -322,6 +354,28 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="yorumlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="yorum_id" Type="Int32" Nullable="false" />
+          <Property Name="userN" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="yorum" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kullanicilar" Relationship="KullaniciModel.FK_yorumlar_kullanicilar" FromRole="yorumlar" ToRole="kullanicilar" />
+        </EntityType>
+        <Association Name="FK_yorumlar_kullanicilar">
+          <End Type="KullaniciModel.kullanicilar" Role="kullanicilar" Multiplicity="1" />
+          <End Type="KullaniciModel.yorumlar" Role="yorumlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="yorumlar">
+              <PropertyRef Name="yorum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -389,6 +443,16 @@ warning 6002: The table/view 'Kullanici.dbo.AktifMi' does not have a primary key
                 <ScalarProperty Name="usrid" ColumnName="usrid" />
                 <ScalarProperty Name="fakulte" ColumnName="fakulte" />
                 <ScalarProperty Name="bolum" ColumnName="bolum" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="yorumlar">
+            <EntityTypeMapping TypeName="KullaniciModel.yorumlar">
+              <MappingFragment StoreEntitySet="yorumlar">
+                <ScalarProperty Name="yorum" ColumnName="yorum" />
+                <ScalarProperty Name="userN" ColumnName="userN" />
+                <ScalarProperty Name="yorum_id" ColumnName="yorum_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -17,6 +17,8 @@
         <AssociationConnector Association="KullaniciModel.FK_gonderim_kullanicilar1" />
         <EntityTypeShape EntityType="KullaniciModel.profil" Width="1.5" PointX="10" PointY="3.125" />
         <AssociationConnector Association="KullaniciModel.FK_profil_kullanicilar" />
+        <EntityTypeShape EntityType="KullaniciModel.yorumlar" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="KullaniciModel.FK_yorumlar_kullanicilar" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

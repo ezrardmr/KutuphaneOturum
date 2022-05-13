@@ -42,7 +42,7 @@ namespace KutuphaneOturum.Controllers
             return View(ym);
         }
         [HttpPost]
-        public ActionResult YardimlasmaAction(string userName, HttpPostedFileBase file, string ders)
+        public ActionResult YardimlasmaAction()
         {
             string usernamea = Session["USERNAME"].ToString();
             if (usernamea == null)

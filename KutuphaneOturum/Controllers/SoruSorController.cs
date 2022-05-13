@@ -29,7 +29,7 @@ namespace KutuphaneOturum.Controllers
                 return RedirectToAction("Giris", "Giris");
             }
             kullanicilar user = db.kullanicilar.Where(w => w.username == username).FirstOrDefault();
-            YardimlasmaModel ym = new YardimlasmaModel();
+            SoruSorModel ym = new SoruSorModel();
             List<masalar> yrdmlsm = new List<masalar>();
             yrdmlsm = db.masalar.Where(w => w.user_id == user.id).ToList();
             ym.k1 = user;

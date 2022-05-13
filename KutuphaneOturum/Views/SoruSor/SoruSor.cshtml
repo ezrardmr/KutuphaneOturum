@@ -129,7 +129,7 @@
                                         </div>
                                     </div>
 
-                                    @using (Html.BeginForm("YardimlasmaAction", "Yardimlasma", FormMethod.Post, new { enctype = "multipart/form-data", @class = "", @id = "data" }))
+                                    @using (Html.BeginForm("SoruSorAction", "SoruSor", FormMethod.Post, new { enctype = "multipart/form-data", @class = "", @id = "data" }))
                                     {
                                         <form>
                                             <div class="row mb-4">
@@ -141,7 +141,7 @@
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label class="col-form-label col-lg-2">Mail Dosyası (pdf - tek dosya)</label>
+                                                <label class="col-form-label col-lg-2">Gönderim Ekle(pdf - tek dosya)</label>
                                                 <div class="col-lg-6">
                                                     <div class="fallback">
                                                         <input name="file" id="file" type="file" accept="application/pdf" />
