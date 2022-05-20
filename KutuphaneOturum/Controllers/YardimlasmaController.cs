@@ -12,8 +12,7 @@ namespace KutuphaneOturum.Controllers
 {
     public class YardimlasmaAltModel
     {
-        //public dosyalar dosya{ get; set; }
-        // public kullanicilar k1 { get; set; }
+       
         public yardim y { get; set; }
         public gonderim gndrm { get; set; }
     }
