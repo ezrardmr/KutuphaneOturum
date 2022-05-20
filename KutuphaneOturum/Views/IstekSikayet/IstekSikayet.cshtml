@@ -100,6 +100,8 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
+                                <a class="dropdown-item text-danger" href="@Url.Action("Yardimlasma", "Yardimlasma")"> <span key="">Yardımlaşma</span></a>
+                                <a class="dropdown-item text-danger" href="@Url.Action("IstekSikayet", "IstekSikayet")"> <span key="">İstek&Şikayet</span></a>
                                 <a class="dropdown-item text-danger" href="@Url.Action("Profilim", "Profilim")"> <span key="">Profilim</span></a>
                                 <a class="dropdown-item text-danger" href="@Url.Action("Cikis", "Giris")"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Çıkış Yap</span></a>
                             </div>
@@ -137,7 +139,7 @@
                                                 <label for="userN" class="col-form-label col-lg-2">Kullanıcı Adı</label>
                                                 <div class="col-lg-6">
 
-                                                    <input id="userN" name="userN" type="text" class="form-control" value="@ViewBag.un" />
+                                                    <input id="usrN" name="usrN" type="text" class="form-control" />
                                                 </div>
                                             </div>
 

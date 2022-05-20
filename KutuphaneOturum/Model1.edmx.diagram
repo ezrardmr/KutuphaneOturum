@@ -4,21 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="df403f04efba40d09a1e6871b12df75e" Name="Diagram1">
-        <EntityTypeShape EntityType="KullaniciModel.kullanicilar" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KullaniciModel.masalar" Width="1.5" PointX="3.125" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="KullaniciModel.oturumSuresi" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KullaniciModel.AktifMi" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="KullaniciModel.FK_masalar_kullanicilar" />
-        <EntityTypeShape EntityType="KullaniciModel.yardim" Width="1.5" PointX="4.625" PointY="3.75" />
-        <AssociationConnector Association="KullaniciModel.FK_oturumSuresi_kullanicilar" />
-        <AssociationConnector Association="KullaniciModel.FK_yardim_kullanicilar" />
-        <EntityTypeShape EntityType="KullaniciModel.gonderim" Width="1.5" PointX="8" PointY="3.125" />
-        <AssociationConnector Association="KullaniciModel.FK_gonderim_kullanicilar1" />
-        <EntityTypeShape EntityType="KullaniciModel.profil" Width="1.5" PointX="10" PointY="3.125" />
-        <AssociationConnector Association="KullaniciModel.FK_profil_kullanicilar" />
-        <EntityTypeShape EntityType="KullaniciModel.yorumlar" Width="1.5" PointX="3" PointY="7" />
-        <AssociationConnector Association="KullaniciModel.FK_yorumlar_kullanicilar" />
+      <Diagram DiagramId="290e4be2993442238413cc95dc7cdb5c" Name="Diagram1">
+        <EntityTypeShape EntityType="KullaniciModel.dosyalar" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.gonderim" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.kullanicilar" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.masalar" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.oturumSuresi" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.profil" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.yardim" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.yorumlar" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="KullaniciModel.AktifMi" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="KullaniciModel.FK_dosyalar_kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="KullaniciModel.FK_gonderim_yardim" ManuallyRouted="false" />
+        <AssociationConnector Association="KullaniciModel.FK_masalar_kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="KullaniciModel.FK_oturumSuresi_kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="KullaniciModel.FK_profil_kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="KullaniciModel.FK_yardim_kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="KullaniciModel.FK_yorumlar_kullanicilar" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

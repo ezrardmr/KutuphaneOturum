@@ -12,13 +12,11 @@ namespace KutuphaneOturum
     using System;
     using System.Collections.Generic;
     
-    public partial class masalar
+    public partial class dosyalar
     {
-        public int id { get; set; }
-        public string kat { get; set; }
-        public string masa_sayisi { get; set; }
-        public int user_id { get; set; }
-        public System.DateTime bitirme_tarihi { get; set; }
+        public int dosyaid { get; set; }
+        public string usern { get; set; }
+        public string yol { get; set; }
     
         public virtual kullanicilar kullanicilar { get; set; }
     }

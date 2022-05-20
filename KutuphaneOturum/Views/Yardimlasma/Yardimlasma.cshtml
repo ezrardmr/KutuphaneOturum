@@ -99,6 +99,8 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
+                                <a class="dropdown-item text-danger" href="@Url.Action("Yardimlasma", "Yardimlasma")"> <span key="">Yardımlaşma</span></a>
+                                <a class="dropdown-item text-danger" href="@Url.Action("IstekSikayet", "IstekSikayet")"> <span key="">İstek&Şikayet</span></a>
                                 <a class="dropdown-item text-danger" href="@Url.Action("Profilim", "Profilim")"> <span key="">Profilim</span></a>
                                 <a class="dropdown-item text-danger" href="@Url.Action("Cikis", "Giris")"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Çıkış Yap</span></a>
                             </div>
@@ -124,18 +126,48 @@
                                             <h4> Yardımlaşma </h4>
                                         </div>
                                         <div class="d-flex">
-                                            <button onclick="location.href='@Url.Action("Anasayfa", "Anasayfa")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;">Aktif Oturumlar</button>
+                                            <button onclick="location.href='@Url.Action("SoruSor", "SoruSor")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;"> Soru Sor </button>
+                                            <button onclick="location.href='@Url.Action("SoruCevapla", "SoruCevapla")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;"> Soru Cevapla </button>
                                         </div>
                                     </div>
-                                    <form>
-                                        <div class="d-flex">
-                                            <button onclick="location.href='@Url.Action("SoruSor", "SoruSor")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;">Soru Sor</button>
-                                        </div>
-                                        <div class="d-flex">
-                                            <button onclick="location.href='@Url.Action("SoruCevapla", "SoruCevapla")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;">Soru Cevapla</button>
-                                        </div>
-                                    </form>
-                                    
+                                   
+                                        
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-nowrap mb-0">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th class="align-middle">Adı/Soyadı</th>
+                                                            <th class="align-middle">Ders Türü</th>
+                                                            <th class="align-middle">Soru</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                        @foreach (var item in Model.yam)
+                                                        {
+                                                            <tr>
+
+                                                                <td><a href="javascript: void(0);" class="text-body fw-bold">@item.y.soran_id.ToString()</a> </td>
+
+
+                                                                <td>
+                                                                    @item.y.ders_turu.ToString()
+                                                                </td>
+                                                                <td>
+                                                                    @item.gndrm.csv_yolu.ToString()
+                                                                </td>
+
+
+
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
 
                                     <!-- end table-responsive -->
                                 </div>

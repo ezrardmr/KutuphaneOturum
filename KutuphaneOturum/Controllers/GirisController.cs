@@ -12,7 +12,7 @@ namespace KutuphaneOturum.Controllers
     public class GirisController : Controller
     {
         // GET: Giris
-        KullaniciEntities K = new KullaniciEntities();
+        KullaniciEntities1 K = new KullaniciEntities1();
         public ActionResult Giris()
         {
             Session["SayfaAdi"] = "Giriş";

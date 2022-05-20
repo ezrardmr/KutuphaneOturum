@@ -16,8 +16,8 @@ namespace KutuphaneOturum
     {
         public int id { get; set; }
         public int yorum_id { get; set; }
-        public string userN { get; set; }
         public string yorum { get; set; }
+        public System.DateTime zaman { get; set; }
     
         public virtual kullanicilar kullanicilar { get; set; }
     }

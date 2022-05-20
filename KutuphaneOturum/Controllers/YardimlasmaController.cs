@@ -10,21 +10,31 @@ using System.Web.Mvc;
 
 namespace KutuphaneOturum.Controllers
 {
+    public class YardimlasmaAltModel
+    {
+        //public dosyalar dosya{ get; set; }
+        // public kullanicilar k1 { get; set; }
+        public yardim y { get; set; }
+        public gonderim gndrm { get; set; }
+    }
     public class YardimlasmaModel
     {
-        public kullanicilar k1 { get; set; }
+        public kullanicilar kl { get; set; }
+        public List<YardimlasmaAltModel> yam { get; set; }
         public List<yardim> yrdm { get; set; }
+        public List<gonderim> gonderims { get; set; }
         public List<masalar> msl { get; set; }
     }
     public class YardimlasmaController : Controller
     {
         // [Audit]
-        KullaniciEntities db = new KullaniciEntities();
-        
+
+        KullaniciEntities1 db = new KullaniciEntities1();
+
         // GET: Yardimlasma
         public ActionResult Yardimlasma()
         {
-           
+
             Session["SayfaAdi"] = "Yardimlasma";
 
             string username = Session["USERNAME"].ToString();
@@ -32,25 +42,39 @@ namespace KutuphaneOturum.Controllers
             {
                 return RedirectToAction("Giris", "Giris");
             }
-            kullanicilar user = db.kullanicilar.Where(w => w.username == username).FirstOrDefault();
-            YardimlasmaModel ym = new YardimlasmaModel();
-            List<masalar> yrdmlsm = new List<masalar>();
-            yrdmlsm = db.masalar.Where(w => w.user_id == user.id).ToList();
-            ym.k1 = user;
-            ym.msl = yrdmlsm;
-
-            return View(ym);
-        }
-        [HttpPost]
-        public ActionResult YardimlasmaAction()
-        {
-            string usernamea = Session["USERNAME"].ToString();
-            if (usernamea == null)
-            {
-                return RedirectToAction("Giris", "Giris");
-            }
             
-            return RedirectToAction("Anasayfa", "Anasayfa");
+            kullanicilar u1 = db.kullanicilar.Where(w => w.username == username).FirstOrDefault();
+            YardimlasmaModel y1 = new YardimlasmaModel();
+            yardim yr = new yardim();
+            List<masalar> yrdmlsm = new List<masalar>();
+            yrdmlsm = db.masalar.Where(w => w.user_id == u1.id).ToList();
+
+            
+            var yardimlas = db.gonderim.Where(w => w.gon_id == yr.id).ToList();
+
+            List<YardimlasmaAltModel> listt = new List<YardimlasmaAltModel>();
+            foreach (var item in yardimlas)
+            {
+                YardimlasmaAltModel asam = new YardimlasmaAltModel();
+
+                asam.gndrm = item;
+                asam.y = item.yardim;
+
+
+
+                listt.Add(asam);
+            }
+           
+            List<gonderim> gonder = new List<gonderim>();
+
+            gonder = db.gonderim.Where(w => w.gon_id == yr.id).ToList();
+            y1.kl = u1;
+            y1.msl = yrdmlsm;
+            y1.yam = listt;
+            y1.gonderims = gonder;
+
+            return View(y1);
         }
+
     }
 }

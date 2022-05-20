@@ -19,8 +19,8 @@ namespace KutuphaneOturum
         {
             this.masalar = new HashSet<masalar>();
             this.oturumSuresi = new HashSet<oturumSuresi>();
-            this.yardim = new HashSet<yardim>();
             this.profil = new HashSet<profil>();
+            this.yardim = new HashSet<yardim>();
             this.yorumlar = new HashSet<yorumlar>();
         }
     
@@ -28,14 +28,15 @@ namespace KutuphaneOturum
         public string username { get; set; }
         public string pass { get; set; }
     
+        public virtual dosyalar dosyalar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<masalar> masalar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<oturumSuresi> oturumSuresi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<yardim> yardim { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<profil> profil { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<yardim> yardim { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<yorumlar> yorumlar { get; set; }
     }

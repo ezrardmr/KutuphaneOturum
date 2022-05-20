@@ -20,7 +20,7 @@ namespace KutuphaneOturum.Controllers
     }
     public class ProfilimController : Controller
     {
-        KullaniciEntities db = new KullaniciEntities();
+        KullaniciEntities1 db = new KullaniciEntities1();
         // GET: Profilim
         public ActionResult Profilim()
         {
@@ -37,7 +37,11 @@ namespace KutuphaneOturum.Controllers
             profil p = new profil();
             var profil = db.profil.Where(w => w.usrid == user.id).ToList();
 
+            
            
+            List<masalar> yrdmlsm = new List<masalar>();
+            yrdmlsm = db.masalar.Where(w => w.user_id == user.id).ToList();
+            
 
 
             List<ProfilimAltModel> asamlist = new List<ProfilimAltModel>();
@@ -55,9 +59,10 @@ namespace KutuphaneOturum.Controllers
 
             List<profil> profils = new List<profil>();
 
-            // oturumlist = db.oturumSuresi.Where(w => w.userid == user.id).ToList();
-            //oturumlist = db.masalar.Where(w => w.user_id == user.id).ToList();
+            
             profils = db.profil.Where(w => w.usrid == user.id).ToList();
+            asm.k1 = user;
+            asm.msl = yrdmlsm;
             asm.pam = asamlist;
             asm.prfl = profils;
 

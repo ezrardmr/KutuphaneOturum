@@ -17,7 +17,7 @@ namespace KutuphaneOturum.Controllers
     }
     public class IstekSikayetController : Controller
     {
-        KullaniciEntities db = new KullaniciEntities();
+        KullaniciEntities1 db = new KullaniciEntities1();
         // GET: İstekSikayet
         public ActionResult IstekSikayet()
         {
@@ -34,11 +34,11 @@ namespace KutuphaneOturum.Controllers
             yrdmlsm = db.masalar.Where(w => w.user_id == user.id).ToList();
             ym.kl = user;
             ym.msl = yrdmlsm;
-
+            
             return View(ym);
         }
         [HttpPost]
-        public ActionResult IstekSikayetAction(string userN, string yorum )
+        public ActionResult IstekSikayetAction(string usrN, string yorum )
         {
             string username = Session["USERNAME"].ToString();
             if (username == null)
@@ -49,7 +49,7 @@ namespace KutuphaneOturum.Controllers
             kullanicilar user1 = new kullanicilar();
             try
             {
-                user1 = db.kullanicilar.Where(w => w.username == userN).FirstOrDefault();
+                user1 = db.kullanicilar.Where(w => w.username == usrN).FirstOrDefault();
             }
             catch
             {
@@ -61,12 +61,16 @@ namespace KutuphaneOturum.Controllers
                 return RedirectToAction("Giris", "Giris");
             }
 
-            ViewBag.un = userN;
+            ViewBag.usr1 = user1;
             string yrm = yorum;
             yorumlar y = new yorumlar();
-            y.yorum_id = db.kullanicilar.Where(w => w.username == userN).FirstOrDefault().id;
+            kullanicilar k1 = new kullanicilar();
+            y.yorum_id = db.kullanicilar.Where(w => w.username == usrN).FirstOrDefault().id;
+            
             y.yorum = yrm;
+            y.zaman = DateTime.Now;
             db.yorumlar.Add(y);
+            
             db.SaveChanges();
             return RedirectToAction("Anasayfa", "Anasayfa");
         }

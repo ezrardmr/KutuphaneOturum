@@ -17,7 +17,7 @@ namespace KutuphaneOturum.Controllers
     }
     public class SoruSorController : Controller
     {
-        KullaniciEntities db = new KullaniciEntities();
+        KullaniciEntities1 db = new KullaniciEntities1();
         // GET: SoruSor
         public ActionResult SoruSor()
         {
@@ -76,10 +76,7 @@ namespace KutuphaneOturum.Controllers
             db.gonderim.Add(g);
 
 
-            kullanicilar k2 = new kullanicilar();
-            yardim ym = new yardim();
-            gonderim gn = new gonderim();
-            string koku = "../Files/" + un;
+            string koku = "../Files/" + ders_konusu;
 
             string guid = Guid.NewGuid().ToString();
             try
@@ -99,26 +96,28 @@ namespace KutuphaneOturum.Controllers
 
                     }
 
-
+                    
                     string path = Server.MapPath(koku);
 
-                    if (!Directory.Exists(path))
+                   /* if (!Directory.Exists(path))
                     {
-                        DirectoryInfo di = Directory.CreateDirectory(path);
-                    }
+                      DirectoryInfo di = Directory.CreateDirectory(path);
+                    }*/
 
                     string dosyaad = guid + Path.GetExtension(file.FileName);
 
                     string kayityol = path + "/" + dosyaad;
 
                     file.SaveAs(kayityol);
-                    //gn.gon_id = 0;
-                    gn.csv_yolu = kayityol;
+                    g.csv_yolu = kayityol;
+                    g.gon_id = y.id;
 
-                    db.gonderim.Add(gn);
+                    db.gonderim.Add(g);
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+            
             }
+            
 
             catch (DbEntityValidationException e)
             {
@@ -132,9 +131,11 @@ namespace KutuphaneOturum.Controllers
                             ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                throw;
+                //throw;
             }
-            return RedirectToAction("Anasayfa", "Anasayfa");
+
+            db.SaveChanges();
+            return RedirectToAction("Yardimlasma", "Yardimlasma");
         }
     }
 }

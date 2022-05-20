@@ -24,8 +24,8 @@ namespace KutuphaneOturum
         public int soran_id { get; set; }
         public string ders_turu { get; set; }
     
-        public virtual kullanicilar kullanicilar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<gonderim> gonderim { get; set; }
+        public virtual kullanicilar kullanicilar { get; set; }
     }
 }

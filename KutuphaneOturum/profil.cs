@@ -15,9 +15,9 @@ namespace KutuphaneOturum
     public partial class profil
     {
         public int id { get; set; }
+        public int usrid { get; set; }
         public string bolum { get; set; }
         public string fakulte { get; set; }
-        public int usrid { get; set; }
     
         public virtual kullanicilar kullanicilar { get; set; }
     }

@@ -13,10 +13,10 @@ namespace KutuphaneOturum
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class KullaniciEntities : DbContext
+    public partial class KullaniciEntities1 : DbContext
     {
-        public KullaniciEntities()
-            : base("name=KullaniciEntities")
+        public KullaniciEntities1()
+            : base("name=KullaniciEntities1")
         {
         }
     
@@ -25,13 +25,14 @@ namespace KutuphaneOturum
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<dosyalar> dosyalar { get; set; }
+        public virtual DbSet<gonderim> gonderim { get; set; }
         public virtual DbSet<kullanicilar> kullanicilar { get; set; }
         public virtual DbSet<masalar> masalar { get; set; }
         public virtual DbSet<oturumSuresi> oturumSuresi { get; set; }
-        public virtual DbSet<AktifMi> AktifMi { get; set; }
-        public virtual DbSet<yardim> yardim { get; set; }
-        public virtual DbSet<gonderim> gonderim { get; set; }
         public virtual DbSet<profil> profil { get; set; }
+        public virtual DbSet<yardim> yardim { get; set; }
         public virtual DbSet<yorumlar> yorumlar { get; set; }
+        public virtual DbSet<AktifMi> AktifMi { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace KutuphaneOturum.Controllers
     }
     public class AnasayfaController : Controller
     {
-        KullaniciEntities db = new KullaniciEntities();
+        KullaniciEntities1 db = new KullaniciEntities1();
         // GET: Anasayfa
         public ActionResult Anasayfa()
         {
