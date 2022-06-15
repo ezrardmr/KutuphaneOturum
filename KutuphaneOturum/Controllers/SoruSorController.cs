@@ -39,7 +39,7 @@ namespace KutuphaneOturum.Controllers
 
         }
         [HttpPost]
-        public ActionResult SoruSorAction(string userName, HttpPostedFileBase file, string ders)
+        public ActionResult SoruSorAction(string userName, HttpPostedFileBase csv_yolu, string ders)
         {
             string usernamea = Session["USERNAME"].ToString();
             if (usernamea == null)
@@ -75,7 +75,22 @@ namespace KutuphaneOturum.Controllers
             db.yardim.Add(y);
             db.gonderim.Add(g);
 
+            if (ModelState.IsValid)
+            {
+                if (csv_yolu.ContentLength > 0)
+                {
+                   
+                    var imga = Path.GetFileName(csv_yolu.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Files/images"), imga);
+                    csv_yolu.SaveAs(path);
+                    g.csv_yolu = "/Files/images/" + imga;
+                    db.gonderim.Add(g);
+                    db.SaveChanges();
+                    return RedirectToAction("Yardimlasma", "Yardimlasma");
+                }
+            }
 
+            /*
             string koku = "../Files/" + ders_konusu;
 
             string guid = Guid.NewGuid().ToString();
@@ -99,10 +114,10 @@ namespace KutuphaneOturum.Controllers
                     
                     string path = Server.MapPath(koku);
 
-                   /* if (!Directory.Exists(path))
+                    if (!Directory.Exists(path))
                     {
                       DirectoryInfo di = Directory.CreateDirectory(path);
-                    }*/
+                    }
 
                     string dosyaad = guid + Path.GetExtension(file.FileName);
 
@@ -135,6 +150,7 @@ namespace KutuphaneOturum.Controllers
             }
 
             db.SaveChanges();
+            */
             return RedirectToAction("Yardimlasma", "Yardimlasma");
         }
     }

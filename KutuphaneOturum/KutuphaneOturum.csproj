@@ -134,9 +134,7 @@
     <Compile Include="Classes\Audit.cs" />
     <Compile Include="Controllers\AnasayfaController.cs" />
     <Compile Include="Controllers\GirisController.cs" />
-    <Compile Include="Controllers\OturumController.cs" />
     <Compile Include="Controllers\ProfilimController.cs" />
-    <Compile Include="Controllers\SoruCevaplaController.cs" />
     <Compile Include="Controllers\SoruSorController.cs" />
     <Compile Include="Controllers\YardimlasmaController.cs" />
     <Compile Include="Controllers\IstekSikayetController.cs" />
@@ -191,6 +189,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\images\0ac60494bd14cd521735ab80562d9fb0.jpg" />
+    <Content Include="Files\images\2a4a990a8cb08f51e904fd17b851bcba.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -250,13 +250,11 @@
     <Content Include="Views\Profilim\Profilim.cshtml" />
     <Content Include="Views\Yardimlasma\Yardimlasma.cshtml" />
     <Content Include="Views\SoruSor\SoruSor.cshtml" />
-    <Content Include="Views\SoruCevapla\SoruCevapla.cshtml" />
     <Content Include="Views\IstekSikayet\IstekSikayet.cshtml" />
     <Content Include="Views\Oturum\Oturum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>

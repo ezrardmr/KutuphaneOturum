@@ -127,7 +127,7 @@
                                         </div>
                                         <div class="d-flex">
                                             <button onclick="location.href='@Url.Action("SoruSor", "SoruSor")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;"> Soru Sor </button>
-                                            <button onclick="location.href='@Url.Action("SoruCevapla", "SoruCevapla")'" type="button" class="btn btn-outline-secondary waves-effect" style="margin-right:20px;"> Soru Cevapla </button>
+                                            
                                         </div>
                                     </div>
                                    
@@ -156,7 +156,8 @@
                                                                     @item.y.ders_turu.ToString()
                                                                 </td>
                                                                 <td>
-                                                                    @item.gndrm.csv_yolu.ToString()
+                                                                    @*@item.gndrm.csv_yolu.ToString()*@
+                                                                    <img src="@item.gndrm.csv_yolu" width="100" height="100" />
                                                                 </td>
 
 

@@ -44,7 +44,7 @@ namespace KutuphaneOturum.Controllers
             
             kullanicilar u1 = db.kullanicilar.Where(w => w.username == username).FirstOrDefault();
             YardimlasmaModel y1 = new YardimlasmaModel();
-            yardim yr = new yardim();
+            yardim yr = db.yardim.Where(w => w.soran_id == u1.id ).FirstOrDefault();
             List<masalar> yrdmlsm = new List<masalar>();
             yrdmlsm = db.masalar.Where(w => w.user_id == u1.id).ToList();
 
